@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"^    AdCreateRequest\\\\|^    AdCreate:\\\\|^    AdList\\\\b\\\\|^    AdListList\\\\|^    AdDetail\\\\|^    PaginatedAdListList\\\\|^    Bank\\\\b\\\\|^    BankDetail\\\\|^    Loan\\\\b\\\\|^    LoanDetail\\\\|^    City\\\\b\\\\|^    CityDetail\\\\|^    MegaMenu\\\\|^    CityPage\\\\|^    PhoneView\" /tmp/vameno_schema.yaml)",
+      "Read(//Users/psycho/Documents/code/saffron-shop/**)",
+      "Bash(rm -f .env .env.example docker-compose.yml)",
+      "Bash(curl -sI https://wordpress.org/latest.zip)",
+      "Bash(curl -sL -o wp.zip https://wordpress.org/latest.zip)",
+      "Bash(curl -sL -o woo.zip https://downloads.wordpress.org/plugin/woocommerce.latest-stable.zip)",
+      "Bash(curl -sL -o storefront.zip https://downloads.wordpress.org/theme/storefront.latest-stable.zip)",
+      "Bash(mv wordpress/* .)",
+      "Bash(rmdir wordpress *)",
+      "Bash(unzip -q woo.zip -d wp-content/plugins/)",
+      "Bash(unzip -q storefront.zip -d wp-content/themes/)",
+      "Bash(rm -f wp.zip woo.zip storefront.zip)",
+      "Bash(curl -sL https://api.wordpress.org/secret-key/1.1/salt/)",
+      "Bash(grep -v '^\\\\.$\\\\|^\\\\.\\\\.$')",
+      "Read(//Applications/**)",
+      "Read(//Applications/XAMPP/xamppfiles/**)",
+      "Bash(rsync -a --exclude '.DS_Store' /Users/psycho/Documents/code/saffron-shop/ /Applications/MAMP/htdocs/saffron-shop/)",
+      "Bash(/Applications/MAMP/Library/bin/mysql -u root -proot -h 127.0.0.1 -P 8889 -e \"CREATE DATABASE IF NOT EXISTS saffron_local CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; SHOW DATABASES LIKE 'saffron%';\")",
+      "Bash(curl -sL -o wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar)",
+      "Bash(/Applications/MAMP/bin/php/php8.2.0/bin/php wp-cli.phar --info --path=/Applications/MAMP/htdocs/saffron-shop)",
+      "Bash(/Applications/MAMP/bin/php/php8.2.0/bin/php /private/tmp/claude-501/-Users-psycho-Documents-code-vameno/e48b02e6-dfd0-4988-9a9f-c3ca6346d38a/scratchpad/wp-cli.phar --path=/Applications/MAMP/htdocs/saffron-shop plugin activate woocommerce)",
+      "Bash(/Applications/MAMP/bin/php/php8.2.0/bin/php /private/tmp/claude-501/-Users-psycho-Documents-code-vameno/e48b02e6-dfd0-4988-9a9f-c3ca6346d38a/scratchpad/wp-cli.phar --path=/Applications/MAMP/htdocs/saffron-shop option update woocommerce_currency USD)",
+      "Bash(/Applications/MAMP/bin/php/php8.2.0/bin/php /private/tmp/claude-501/-Users-psycho-Documents-code-vameno/e48b02e6-dfd0-4988-9a9f-c3ca6346d38a/scratchpad/wp-cli.phar --path=/Applications/MAMP/htdocs/saffron-shop wc product list --user=admin --fields=id,name,sku,price)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8888/saffron-shop/shop/)"
+    ]
+  }
+}
