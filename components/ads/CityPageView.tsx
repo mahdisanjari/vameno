@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { AdFilterSidebar } from "@/components/ads/AdFilterSidebar";
 import { AdList } from "@/components/ads/AdList";
-import { RichText } from "@/components/RichText";
+import { ReadMoreRichText } from "@/components/ReadMoreRichText";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/constants";
 import type { Ad, Bank, CityPage, CityPageType, Loan, PaginatedResponse } from "@/lib/types";
@@ -66,7 +66,7 @@ export function CityPageView({ cityPage, ads, banks, loans, page, pageType, city
 
       {cityPage.rich_content && (
         <div className="mt-12 border-t border-neutral-200 pt-8">
-          <RichText html={cityPage.rich_content} />
+          <ReadMoreRichText html={cityPage.rich_content} />
         </div>
       )}
     </div>

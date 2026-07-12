@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Check, Sparkles, BadgePercent } from "lucide-react";
 import { serverFetch } from "@/lib/api";
-import { formatToman } from "@/lib/utils";
+import { cn, formatToman } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { Card, CardBody } from "@/components/ui/card";
 import { PurchaseButton } from "./PurchaseButton";
@@ -50,14 +50,17 @@ export default async function SubscriptionPage() {
             return (
               <Card
                 key={plan.id}
-                className={plan.is_featured ? "relative border-2 border-accent-400 shadow-card-hover" : "relative"}
+                className={cn(
+                  "relative flex h-full flex-col",
+                  plan.is_featured && "border-2 border-accent-400 shadow-card-hover",
+                )}
               >
                 {plan.is_featured && (
                   <span className="absolute -top-3 right-1/2 translate-x-1/2 rounded-full bg-accent-500 px-3 py-1 text-xs font-bold text-white">
                     پرطرفدارترین
                   </span>
                 )}
-                <CardBody className="flex flex-col gap-4">
+                <CardBody className="flex flex-1 flex-col gap-4">
                   <div>
                     <h2 className="text-lg font-bold text-neutral-900">{plan.name}</h2>
                     <p className="mt-1 text-sm text-neutral-500">
@@ -81,8 +84,8 @@ export default async function SubscriptionPage() {
                     )}
                   </div>
 
-                  {featureLines.length > 0 && (
-                    <ul className="space-y-2 text-sm text-neutral-600">
+                  {featureLines.length > 0 ? (
+                    <ul className="flex-1 space-y-2 text-sm text-neutral-600">
                       {featureLines.map((feature) => (
                         <li key={feature} className="flex items-center gap-2">
                           <Check size={16} className="text-emerald-500" />
@@ -90,6 +93,8 @@ export default async function SubscriptionPage() {
                         </li>
                       ))}
                     </ul>
+                  ) : (
+                    <div className="flex-1" />
                   )}
 
                   <PurchaseButton planId={plan.id} isPopular={!!plan.is_featured} />
