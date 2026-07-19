@@ -29,12 +29,20 @@ export interface Bank {
   slug: string;
   logo?: string | null;
   description?: string;
+  rich_content?: string;
   website?: string;
   loan_count?: number;
   loans?: BankLoanSummary[];
   meta_title?: string;
   meta_description?: string;
   absolute_url?: string;
+}
+
+/** GET /api/banks/{slug}/ doesn't return a flat Bank — it wraps it with the bank's loans. */
+export interface BankDetailResponse {
+  bank: Bank;
+  loans: Loan[];
+  total_loans: number;
 }
 
 export interface Loan {

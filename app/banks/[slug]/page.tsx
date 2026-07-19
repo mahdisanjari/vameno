@@ -2,35 +2,29 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Landmark, ArrowLeft } from "lucide-react";
-import { serverFetchAllPages, serverFetchOrNull } from "@/lib/api";
+import { Landmark, ArrowLeft, Globe } from "lucide-react";
+import { serverFetchOrNull } from "@/lib/api";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { RichText } from "@/components/RichText";
+import { ReadMoreRichText } from "@/components/ReadMoreRichText";
 import { Card, CardBody } from "@/components/ui/card";
-import type { Bank, Loan } from "@/lib/types";
+import { formatToman } from "@/lib/utils";
+import type { BankDetailResponse } from "@/lib/types";
 
 interface PageProps {
   params: { slug: string };
 }
 
-async function getBank(slug: string) {
-  return serverFetchOrNull<Bank>(`/api/banks/${encodeURIComponent(slug)}/`, { revalidate: 600 });
-}
-
-async function getBankLoans(slug: string) {
-  try {
-    return await serverFetchAllPages<Loan>(`/api/banks/loans/?bank=${encodeURIComponent(slug)}`, {
-      revalidate: 600,
-    });
-  } catch {
-    return [];
-  }
+async function getBankDetail(slug: string) {
+  return serverFetchOrNull<BankDetailResponse>(`/api/banks/${encodeURIComponent(slug)}/`, {
+    revalidate: 600,
+  });
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const bank = await getBank(params.slug);
-  if (!bank) return {};
+  const data = await getBankDetail(params.slug);
+  if (!data) return {};
+  const { bank } = data;
 
   return {
     title: bank.meta_title || `وام‌های ${bank.name}`,
@@ -40,16 +34,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BankPage({ params }: PageProps) {
-  const bank = await getBank(params.slug);
-  if (!bank) notFound();
+  const data = await getBankDetail(params.slug);
+  if (!data) notFound();
 
-  const loans = await getBankLoans(params.slug);
+  const { bank, loans } = data;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FinancialProduct",
     name: bank.name,
-    description: bank.description ?? bank.name,
+    description: bank.description || bank.name,
   };
 
   return (
@@ -57,7 +51,7 @@ export default async function BankPage({ params }: PageProps) {
       <JsonLd data={jsonLd} />
       <Breadcrumbs items={[{ label: "بانک‌ها" }, { label: bank.name }]} />
 
-      <div className="mb-8 flex items-center gap-3">
+      <div className="mb-6 flex flex-wrap items-center gap-3">
         {bank.logo ? (
           <Image
             src={bank.logo}
@@ -75,33 +69,54 @@ export default async function BankPage({ params }: PageProps) {
           <h1 className="text-2xl font-extrabold text-neutral-900">{bank.name}</h1>
           <p className="text-sm text-neutral-500">وام‌ها و خدمات {bank.name}</p>
         </div>
+        {bank.website && (
+          <a
+            href={bank.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mr-auto flex items-center gap-1.5 rounded-xl border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-600 hover:bg-neutral-50"
+          >
+            <Globe size={15} />
+            وبسایت رسمی
+          </a>
+        )}
       </div>
 
-      {bank.description && (
-        <div className="mb-8">
-          <RichText html={bank.description} />
+      {bank.description && <p className="mb-6 text-sm leading-7 text-neutral-600">{bank.description}</p>}
+
+      {bank.rich_content && (
+        <div className="mb-10">
+          <ReadMoreRichText html={bank.rich_content} />
+          
         </div>
       )}
 
       <h2 className="mb-4 text-lg font-bold text-neutral-800">وام‌های {bank.name}</h2>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {loans.map((loan) => (
-          <Link key={loan.id} href={`/loan/${bank.slug}/${loan.slug}`}>
-            <Card className="h-full hover:shadow-card-hover">
-              <CardBody className="flex flex-col gap-2">
-                <h3 className="font-bold text-neutral-800">{loan.name}</h3>
-                {loan.max_amount && (
-                  <p className="text-xs text-neutral-500">سقف وام: {loan.max_amount.toLocaleString("fa-IR")} تومان</p>
-                )}
-                <span className="mt-2 flex items-center gap-1 text-sm font-medium text-primary-700">
-                  جزئیات و شرایط
-                  <ArrowLeft size={14} />
-                </span>
-              </CardBody>
-            </Card>
-          </Link>
-        ))}
-      </div>
+      {loans.length === 0 ? (
+        <p className="text-sm text-neutral-500">در حال حاضر وامی برای این بانک ثبت نشده است.</p>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {loans.map((loan) => (
+            <Link key={loan.id} href={`/loan/${bank.slug}/${loan.slug}`}>
+              <Card className="h-full hover:shadow-card-hover">
+                <CardBody className="flex flex-col gap-2">
+                  <h3 className="font-bold text-neutral-800">{loan.name}</h3>
+                  {loan.short_description && (
+                    <p className="line-clamp-2 text-xs text-neutral-500">{loan.short_description}</p>
+                  )}
+                  {loan.max_amount && (
+                    <p className="text-xs text-neutral-500">سقف وام: {formatToman(loan.max_amount)}</p>
+                  )}
+                  <span className="mt-2 flex items-center gap-1 text-sm font-medium text-primary-700">
+                    جزئیات و شرایط
+                    <ArrowLeft size={14} />
+                  </span>
+                </CardBody>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

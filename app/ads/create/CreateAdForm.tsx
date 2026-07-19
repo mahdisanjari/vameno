@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
+import { SearchableSelect } from "@/components/ui/searchable-select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
@@ -45,11 +46,15 @@ export function CreateAdForm({ cities, banks, loans }: { cities: City[]; banks: 
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { ad_type: "sell" },
+    defaultValues: { ad_type: "sell", city: "" },
   });
+
+  const cityValue = watch("city");
+  const cityOptions = useMemo(() => cities.map((c) => ({ id: c.id, label: c.name })), [cities]);
 
   const visibleLoans = useMemo(
     () => (selectedBank ? loans.filter((l) => l.bank.id === selectedBank) : loans),
@@ -121,14 +126,16 @@ export function CreateAdForm({ cities, banks, loans }: { cities: City[]; banks: 
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="city">شهر</Label>
-              <Select id="city" {...register("city")}>
-                <option value="">انتخاب کنید</option>
-                {cities.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.name}
-                  </option>
-                ))}
-              </Select>
+              <SearchableSelect
+                id="city"
+                options={cityOptions}
+                value={cityValue}
+                onChange={(id) => setValue("city", id, { shouldValidate: true })}
+                placeholder="جستجو و انتخاب شهر"
+                searchPlaceholder="نام شهر را تایپ کنید..."
+                emptyText="شهری یافت نشد"
+                clearable={false}
+              />
               {errors.city && <p className="mt-1 text-xs text-red-600">{errors.city.message}</p>}
             </div>
             <div>
