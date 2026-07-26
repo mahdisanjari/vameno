@@ -50,7 +50,7 @@ export default async function BankPage({ params }: PageProps) {
     <div className="container-page py-8">
       <JsonLd data={jsonLd} />
       <Breadcrumbs items={[{ label: "بانک‌ها" }, { label: bank.name }]} />
-
+//git
       <div className="mb-6 flex flex-wrap items-center gap-3">
         {bank.logo ? (
           <Image
