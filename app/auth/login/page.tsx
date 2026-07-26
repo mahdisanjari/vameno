@@ -13,7 +13,7 @@ export default function LoginPage() {
       <div className="w-full">
         <h1 className="mb-1 text-center text-2xl font-extrabold text-neutral-900">ورود به وامنو</h1>
         <p className="mb-8 text-center text-sm text-neutral-500">
-          با شماره موبایل و رمز عبور خود وارد شوید.
+          با شماره موبایل و رمز عبور خود وارد شوید.11
         </p>
         <Suspense fallback={null}>
           <LoginForm />

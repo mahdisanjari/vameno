@@ -6,7 +6,7 @@ import type { AuthTokens } from "./types";
 /** Trust a TLS-terminating proxy's header first; fall back to the request's own protocol. */
 export function isHttpsRequest(request: NextRequest): boolean {
   const forwardedProto = request.headers.get("x-forwarded-proto");
-  if (forwardedProto) return forwardedProto.split(",")[0].trim() === "https";
+  if (forwardedProto) return (forwardedProto.split(",")[0] ?? "").trim() === "https";
   return request.nextUrl.protocol === "https:";
 }
 

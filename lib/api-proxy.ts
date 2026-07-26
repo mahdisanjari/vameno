@@ -8,7 +8,7 @@ import type { AuthTokens } from "./types";
 function isHttpsHeaders(): boolean | undefined {
   const forwardedProto = headers().get("x-forwarded-proto");
   if (!forwardedProto) return undefined;
-  return forwardedProto.split(",")[0].trim() === "https";
+  return (forwardedProto.split(",")[0] ?? "").trim() === "https";
 }
 
 async function refreshAccessToken(refreshToken: string): Promise<AuthTokens | null> {
