@@ -1,10 +1,13 @@
 import { cookies } from "next/headers";
-import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "./constants";
+import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE, SITE_URL } from "./constants";
 import type { AuthTokens } from "./types";
 
+// `Secure` cookies are silently dropped by the browser when the site itself is
+// served over plain HTTP, so tie this to the deployment's actual protocol
+// (SITE_URL) rather than NODE_ENV — a production deploy isn't necessarily HTTPS.
 const COOKIE_BASE_OPTIONS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
+  secure: SITE_URL.startsWith("https://"),
   sameSite: "lax" as const,
   path: "/",
 };

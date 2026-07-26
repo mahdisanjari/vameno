@@ -13,11 +13,14 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    // Omit `item` when there's no real URL for this crumb (e.g. a non-linked
+    // category label) — defaulting it to SITE_URL produced duplicate, invalid
+    // ListItem URLs across pages instead of a valid partial breadcrumb.
     itemListElement: allItems.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: item.label,
-      item: `${SITE_URL}${item.href ?? ""}`,
+      ...(item.href ? { item: `${SITE_URL}${item.href}` } : {}),
     })),
   };
 
