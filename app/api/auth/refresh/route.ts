@@ -1,9 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { API_URL } from "@/lib/constants";
-import { buildAuthCookies, buildClearAuthCookies, getRefreshTokenFromCookies } from "@/lib/auth";
+import { buildAuthCookies, buildClearAuthCookies, getRefreshTokenFromCookies, isHttpsRequest } from "@/lib/auth";
 
-export async function POST() {
+export async function POST(request: NextRequest) {
   const refreshToken = getRefreshTokenFromCookies();
+  const secure = isHttpsRequest(request);
 
   if (!refreshToken) {
     return NextResponse.json({ detail: "no refresh token" }, { status: 401 });
@@ -18,7 +19,7 @@ export async function POST() {
 
   if (!res.ok) {
     const response = NextResponse.json({ detail: "refresh failed" }, { status: 401 });
-    for (const c of buildClearAuthCookies()) {
+    for (const c of buildClearAuthCookies(secure)) {
       response.cookies.set(c.name, c.value, c.options);
     }
     return response;
@@ -26,7 +27,7 @@ export async function POST() {
 
   const data = await res.json();
   const response = NextResponse.json({ ok: true });
-  for (const c of buildAuthCookies({ access: data.access, refresh: data.refresh ?? refreshToken })) {
+  for (const c of buildAuthCookies({ access: data.access, refresh: data.refresh ?? refreshToken }, secure)) {
     response.cookies.set(c.name, c.value, c.options);
   }
   return response;

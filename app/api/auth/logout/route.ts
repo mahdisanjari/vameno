@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { API_URL } from "@/lib/constants";
-import { buildClearAuthCookies, getRefreshTokenFromCookies } from "@/lib/auth";
+import { buildClearAuthCookies, getRefreshTokenFromCookies, isHttpsRequest } from "@/lib/auth";
 
-export async function POST() {
+export async function POST(request: NextRequest) {
   const refreshToken = getRefreshTokenFromCookies();
 
   if (refreshToken) {
@@ -19,7 +19,7 @@ export async function POST() {
   }
 
   const response = NextResponse.json({ ok: true });
-  for (const c of buildClearAuthCookies()) {
+  for (const c of buildClearAuthCookies(isHttpsRequest(request))) {
     response.cookies.set(c.name, c.value, c.options);
   }
   return response;

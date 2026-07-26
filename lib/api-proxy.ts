@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
 import { API_URL } from "./constants";
 import { buildAuthCookies, buildClearAuthCookies, getAccessTokenFromCookies, getRefreshTokenFromCookies } from "./auth";
 import type { AuthTokens } from "./types";
+
+/** No NextRequest object available here — best we can do is check a TLS-terminating proxy's header. */
+function isHttpsHeaders(): boolean | undefined {
+  const forwardedProto = headers().get("x-forwarded-proto");
+  if (!forwardedProto) return undefined;
+  return forwardedProto.split(",")[0].trim() === "https";
+}
 
 async function refreshAccessToken(refreshToken: string): Promise<AuthTokens | null> {
   const res = await fetch(`${API_URL}/api/auth/token/refresh/`, {
@@ -64,12 +72,14 @@ export async function proxyToBackend(path: string, { method = "GET", body, requi
     headers: { "Content-Type": res.headers.get("Content-Type") ?? "application/json" },
   });
 
+  const secure = isHttpsHeaders();
+
   if (refreshedTokens) {
-    for (const c of buildAuthCookies(refreshedTokens)) {
+    for (const c of buildAuthCookies(refreshedTokens, secure)) {
       nextRes.cookies.set(c.name, c.value, c.options);
     }
   } else if (res.status === 401 && refreshToken) {
-    for (const c of buildClearAuthCookies()) {
+    for (const c of buildClearAuthCookies(secure)) {
       nextRes.cookies.set(c.name, c.value, c.options);
     }
   }

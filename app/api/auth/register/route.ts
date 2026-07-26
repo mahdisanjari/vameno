@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { API_URL } from "@/lib/constants";
-import { buildAuthCookies } from "@/lib/auth";
+import { buildAuthCookies, isHttpsRequest } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   const payload = await request.json();
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
   const response = NextResponse.json({ user: rest.user ?? rest }, { status: 201 });
 
   if (access && refresh) {
-    for (const c of buildAuthCookies({ access, refresh })) {
+    for (const c of buildAuthCookies({ access, refresh }, isHttpsRequest(request))) {
       response.cookies.set(c.name, c.value, c.options);
     }
   }
