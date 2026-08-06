@@ -9,7 +9,7 @@ import type { SubscriptionPlan } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "پلن‌های اشتراک",
-  description: "با تهیه اشتراک وامنو، بدون محدودیت به شماره تماس آگهی‌های خرید و فروش وام دسترسی داشته باشید.",
+  description: "با تهیه اشتراک وثیق، بدون محدودیت به شماره تماس آگهی‌های خرید و فروش وام دسترسی داشته باشید.",
   alternates: { canonical: "/subscription" },
 };
 

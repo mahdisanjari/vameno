@@ -6,7 +6,7 @@ import type { Bank, City, Loan } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "ثبت آگهی جدید",
-  description: "آگهی خرید یا فروش وام خود را در وامنو ثبت کنید.",
+  description: "آگهی خرید یا فروش وام خود را در وثیق ثبت کنید.",
   alternates: { canonical: "/ads/create" },
 };
 

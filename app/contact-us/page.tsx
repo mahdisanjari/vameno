@@ -7,7 +7,7 @@ import { ContactForm } from "./ContactForm";
 
 export const metadata: Metadata = {
   title: "تماس با ما",
-  description: "راه‌های ارتباط با تیم پشتیبانی وامنو؛ فرم تماس، شماره پشتیبانی و ساعات پاسخگویی.",
+  description: "راه‌های ارتباط با تیم پشتیبانی وثیق؛ فرم تماس، شماره پشتیبانی و ساعات پاسخگویی.",
   alternates: { canonical: "/contact-us" },
 };
 
@@ -21,7 +21,7 @@ const contactItems = [
   },
   { icon: Mail, label: "ایمیل", value: SUPPORT_EMAIL, href: `mailto:${SUPPORT_EMAIL}`, dir: "ltr" as const },
   { icon: Clock, label: "ساعات پاسخگویی", value: SUPPORT_HOURS },
-  { icon: MapPin, label: "دفتر مرکزی", value: "تهران، خیابان ولیعصر، برج وامنو، طبقه ۴" },
+  { icon: MapPin, label: "دفتر مرکزی", value: "تهران، خیابان ولیعصر، برج وثیق، طبقه ۴" },
 ];
 
 export default function ContactUsPage() {
@@ -30,7 +30,7 @@ export default function ContactUsPage() {
       <Breadcrumbs items={[{ label: "تماس با ما" }]} />
       <h1 className="mb-2 text-2xl font-extrabold text-neutral-900">تماس با ما</h1>
       <p className="mb-8 max-w-2xl text-sm leading-7 text-neutral-600">
-        سوال، پیشنهاد یا مشکلی دارید؟ تیم پشتیبانی وامنو آماده پاسخگویی به شماست. فرم زیر را پر
+        سوال، پیشنهاد یا مشکلی دارید؟ تیم پشتیبانی وثیق آماده پاسخگویی به شماست. فرم زیر را پر
         کنید یا از راه‌های ارتباطی دیگر با ما در تماس باشید.
       </p>
 

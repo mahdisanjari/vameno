@@ -21,7 +21,7 @@ export function PaywallModal({ open, onClose, isAuthenticated }: PaywallModalPro
         <h3 className="mb-2 text-lg font-bold text-neutral-900">مشاهدات رایگان شما تمام شد</h3>
         <p className="mb-6 text-sm leading-6 text-neutral-600">
           {isAuthenticated
-            ? "برای مشاهده شماره تماس آگهی‌های بیشتر، لازم است یکی از پلن‌های اشتراک وامنو را تهیه کنید."
+            ? "برای مشاهده شماره تماس آگهی‌های بیشتر، لازم است یکی از پلن‌های اشتراک وثیق را تهیه کنید."
             : "شما به سقف مشاهده رایگان شماره تماس رسیده‌اید. برای ادامه، ابتدا ثبت‌نام یا وارد حساب کاربری خود شوید."}
         </p>
 

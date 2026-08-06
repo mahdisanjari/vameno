@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   وثیق — brand tokens
+   Palette is derived from the logo's own two materials: the lapis
+   ground and the burnished gold of the mark. Tile green is the one
+   addition, and doubles as the "verified" semantic.
+   ============================================================ */
+:root {
+  --lapis: 19 28 41;          /* #131C29 — ground */
+  --lapis-raised: 26 37 52;   /* #1A2534 — surfaces on lapis */
+  --gold: 201 162 75;         /* #C9A24B — old gold */
+  --gold-burnished: 231 205 139;
+  --gold-engraved: 142 107 40;/* #8E6B28 — gold that stays legible on paper */
+  --sabz: 20 82 74;           /* #14524A — tile green */
+  --paper: 237 232 222;       /* #EDE8DE — aged paper */
+
+  /* hairline rules read as gold at low alpha, never as grey borders */
+  --rule-gold: rgb(var(--gold) / 0.26);
+  --rule-gold-strong: rgb(var(--gold) / 0.45);
+
+  --t-fast: 160ms cubic-bezier(0.2, 0.8, 0.3, 1);
+  --t-base: 240ms cubic-bezier(0.2, 0.8, 0.3, 1);
+  --t-slow: 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -10,14 +34,19 @@ body {
   @apply bg-neutral-50 text-neutral-900 antialiased;
 }
 
-@layer utilities {
-  .container-page {
-    @apply container mx-auto px-4;
-  }
+/* Headings carry the classical naskh face; body stays on Vazirmatn. */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-markazi), var(--font-vazir), serif;
+  font-weight: 700;
+  line-height: 1.45;
+  text-wrap: balance;
 }
 
 ::selection {
-  @apply bg-primary-200 text-primary-900;
+  @apply bg-accent-200 text-navy-950;
 }
 
 input,
@@ -26,8 +55,71 @@ select {
   font-family: inherit;
 }
 
+/* Amounts and any digits that line up in columns must not jitter. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+@layer utilities {
+  .container-page {
+    @apply container mx-auto px-4;
+  }
+
+  /* Latin labels: Cormorant, wide-tracked — short words only. */
+  .label-latin {
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  /* Ceremonial only: wordmark and at most one pull-quote per page. */
+  .nastaliq {
+    font-family: var(--font-nastaliq), var(--font-vazir), serif;
+    line-height: 2;
+  }
+
+  /* گنبد — the shallow dome that tops a card, echoing a manuscript headpiece */
+  .dome-top {
+    border-start-start-radius: 50% 100%;
+    border-start-end-radius: 50% 100%;
+  }
+
+  /* کتیبه — hairline divider with a centred lozenge */
+  .rule-diamond {
+    @apply flex items-center gap-3 text-accent-500;
+  }
+  .rule-diamond::before,
+  .rule-diamond::after {
+    content: "";
+    @apply h-px flex-1 bg-current opacity-40;
+  }
+}
+
+/* گره هشت‌پر — eight-point girih star, for background texture only.
+   Kept at very low alpha: it should be felt, not seen. */
+.girih-texture {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23C9A24B' stroke-width='1'%3E%3Cpath d='M32 6 L58 32 L32 58 L6 32 Z'/%3E%3Cpath d='M14 14 H50 V50 H14 Z'/%3E%3Cpath d='M32 0 V6 M64 32 H58 M32 64 V58 M0 32 H6'/%3E%3Cpath d='M14 14 L6 6 M50 14 L58 6 M50 50 L58 58 M14 50 L6 58'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
 /* prose overrides for RTL rich text coming from CKEditor */
 .prose-rtl {
   direction: rtl;
   text-align: right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

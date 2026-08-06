@@ -39,8 +39,8 @@ export function MegaMenu({ banks, featuredCities }: MegaMenuProps) {
       >
         <button
           className={cn(
-            "flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-primary-700",
-            openMenu === "banks" && "bg-neutral-100 text-primary-700",
+            "flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-navy-100 transition-colors hover:bg-white/10 hover:text-accent-300",
+            openMenu === "banks" && "bg-white/10 text-accent-300",
           )}
         >
           <Landmark size={16} />
@@ -108,8 +108,8 @@ export function MegaMenu({ banks, featuredCities }: MegaMenuProps) {
       >
         <button
           className={cn(
-            "flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-primary-700",
-            openMenu === "cities" && "bg-neutral-100 text-primary-700",
+            "flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-navy-100 transition-colors hover:bg-white/10 hover:text-accent-300",
+            openMenu === "cities" && "bg-white/10 text-accent-300",
           )}
         >
           <MapPin size={16} />
@@ -144,13 +144,13 @@ export function MegaMenu({ banks, featuredCities }: MegaMenuProps) {
         )}
       </div>
 
-      <Link href="/subscription" className="rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-primary-700">
+      <Link href="/subscription" className="rounded-lg px-3 py-2 text-sm font-medium text-navy-100 transition-colors hover:bg-white/10 hover:text-accent-300">
         اشتراک
       </Link>
-      <Link href="/terms" className="rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-primary-700">
+      <Link href="/terms" className="rounded-lg px-3 py-2 text-sm font-medium text-navy-100 transition-colors hover:bg-white/10 hover:text-accent-300">
         قوانین و مقررات
       </Link>
-      <Link href="/contact-us" className="rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-primary-700">
+      <Link href="/contact-us" className="rounded-lg px-3 py-2 text-sm font-medium text-navy-100 transition-colors hover:bg-white/10 hover:text-accent-300">
         تماس با ما
       </Link>
     </nav>

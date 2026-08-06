@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: bank.meta_title || `وام‌های ${bank.name}`,
-    description: bank.meta_description || `لیست کامل وام‌های ${bank.name} و آگهی‌های مرتبط در وامنو.`,
+    description: bank.meta_description || `لیست کامل وام‌های ${bank.name} و آگهی‌های مرتبط در وثیق.`,
     alternates: { canonical: `/banks/${bank.slug}` },
   };
 }

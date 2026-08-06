@@ -1,6 +1,13 @@
 import Link from "next/link";
-import { Landmark, Phone, Mail, MessageCircle, Clock } from "lucide-react";
-import { SUPPORT_EMAIL, SUPPORT_HOURS, SUPPORT_PHONE, SUPPORT_WHATSAPP } from "@/lib/constants";
+import { ShieldCheck, Phone, Mail, MessageCircle, Clock } from "lucide-react";
+import {
+  SITE_NAME,
+  SITE_NAME_LATIN,
+  SUPPORT_EMAIL,
+  SUPPORT_HOURS,
+  SUPPORT_PHONE,
+  SUPPORT_WHATSAPP,
+} from "@/lib/constants";
 
 const footerLinks = [
   {
@@ -23,17 +30,18 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="mt-16 border-t border-neutral-200 bg-navy-950 text-neutral-300">
+    <footer className="mt-16 border-t border-accent-500/25 bg-navy-950 text-neutral-300">
       <div className="container-page grid gap-10 py-12 md:grid-cols-4">
         <div className="md:col-span-2">
-          <div className="mb-3 flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-600 text-white">
-              <Landmark size={19} />
+          <div className="mb-1 flex items-center gap-2.5">
+            <span className="flex h-[38px] w-[38px] items-center justify-center rounded-full border border-accent-500/50 text-accent-500">
+              <ShieldCheck size={19} strokeWidth={1.5} />
             </span>
-            <span className="text-lg font-extrabold text-white">وامنو</span>
+            <span className="nastaliq text-[1.7rem] leading-[1.9] text-accent-500">{SITE_NAME}</span>
           </div>
+          <p className="label-latin mb-4 text-accent-600/80">{SITE_NAME_LATIN}</p>
           <p className="max-w-md text-sm leading-7 text-neutral-400">
-            وامنو یک پلتفرم واسط برای آگهی خرید و فروش وام است. ما هیچ‌گونه وامی به‌صورت مستقیم ارائه
+            وثیق یک پلتفرم واسط برای آگهی خرید و فروش وام است. ما هیچ‌گونه وامی به‌صورت مستقیم ارائه
             نمی‌کنیم و صرفاً بستری برای ارتباط آگهی‌دهندگان و متقاضیان فراهم می‌کنیم. مسئولیت صحت
             اطلاعات آگهی‌ها بر عهده آگهی‌دهنده است. پیش از هرگونه معامله، حتماً بخش{" "}
             <Link href="/terms" className="text-primary-300 underline">
@@ -89,7 +97,7 @@ export function Footer() {
 
       <div className="border-t border-white/10 py-4">
         <p className="container-page text-center text-xs text-neutral-500">
-          © {new Date().getFullYear()} وامنو — تمامی حقوق محفوظ است. وامنو صرفاً واسط آگهی است و
+          © {new Date().getFullYear()} وثیق — تمامی حقوق محفوظ است. وثیق صرفاً واسط آگهی است و
           ارائه‌دهنده مستقیم خدمات بانکی نیست.
         </p>
       </div>

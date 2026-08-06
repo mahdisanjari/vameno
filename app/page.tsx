@@ -13,7 +13,7 @@ import type { Ad, Bank, City, PaginatedResponse } from "@/lib/types";
 export const metadata: Metadata = {
   title: `${SITE_NAME} | خرید و فروش وام با اعتماد و شفافیت`,
   description:
-    "در وامنو، آگهی‌های خرید و فروش وام را بر اساس شهر و بانک مقایسه کنید. ثبت آگهی رایگان و مشاهده شماره تماس آسان.",
+    "در وثیق، آگهی‌های خرید و فروش وام را بر اساس شهر و بانک مقایسه کنید. ثبت آگهی رایگان و مشاهده شماره تماس آسان.",
   alternates: { canonical: "/" },
 };
 
@@ -45,7 +45,7 @@ const trustPoints = [
   {
     icon: ShieldCheck,
     title: "واسط شفاف و امن",
-    desc: "وامنو صرفاً بستر آگهی است و در معاملات مالی طرفین دخالتی ندارد.",
+    desc: "وثیق صرفاً بستر آگهی است و در معاملات مالی طرفین دخالتی ندارد.",
   },
   {
     icon: TrendingUp,
@@ -55,7 +55,7 @@ const trustPoints = [
   {
     icon: Users,
     title: "پشتیبانی پاسخگو",
-    desc: "تیم پشتیبانی وامنو در تمام مراحل همراه شماست.",
+    desc: "تیم پشتیبانی وثیق در تمام مراحل همراه شماست.",
   },
 ];
 
@@ -74,18 +74,28 @@ export default async function HomePage() {
     <div>
       <JsonLd data={websiteJsonLd} />
 
-      <section className="border-b border-neutral-200 bg-gradient-to-b from-primary-50 to-white">
-        <div className="container-page grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-24">
+      {/* The hero commits to lapis in every context — the ground the mark itself
+          lives on. The girih star sits at 6% opacity: felt, not seen. */}
+      <section className="relative overflow-hidden border-b border-accent-500/25 bg-navy-950">
+        <div
+          className="girih-texture pointer-events-none absolute inset-0 opacity-[0.06]"
+          style={{
+            maskImage: "radial-gradient(85% 70% at 50% 15%, #000 20%, transparent 78%)",
+            WebkitMaskImage: "radial-gradient(85% 70% at 50% 15%, #000 20%, transparent 78%)",
+          }}
+          aria-hidden="true"
+        />
+        <div className="container-page relative grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-24">
           <div>
-            <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-primary-100 px-3 py-1 text-xs font-medium text-primary-700">
+            <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-accent-500/30 px-3 py-1 text-xs font-medium text-accent-400">
               <ShieldCheck size={14} /> پلتفرم واسط آگهی وام، شفاف و قابل اعتماد
             </span>
-            <h1 className="mb-4 text-3xl font-extrabold leading-tight text-neutral-900 sm:text-4xl">
+            <h1 className="mb-4 text-3xl font-extrabold leading-tight text-neutral-50 sm:text-4xl">
               خرید و فروش وام،
-              <span className="text-primary-700"> ساده و مطمئن</span>
+              <span className="text-accent-500"> با اطمینانِ ثبت‌شده</span>
             </h1>
-            <p className="mb-8 max-w-xl text-base leading-8 text-neutral-600">
-              وامنو آگهی‌های خرید و فروش وام را از سراسر ایران در یک‌جا گرد آورده تا شما بتوانید
+            <p className="mb-8 max-w-xl text-base leading-8 text-navy-200">
+              وثیق آگهی‌های خرید و فروش وام را از سراسر ایران در یک‌جا گرد آورده تا شما بتوانید
               بر اساس شهر، بانک و نوع وام، بهترین گزینه را پیدا کنید.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -95,7 +105,12 @@ export default async function HomePage() {
                     <Button size="lg">مشاهده آگهی‌های خرید وام</Button>
                   </Link>
                   <Link href={`/sell/${primaryCity.slug}`}>
-                    <Button size="lg" variant="outline">
+                    {/* only one gold button per view — the second action takes the hairline */}
+                    <Button
+                      size="lg"
+                      variant="ghost"
+                      className="border border-accent-500/45 text-accent-400 hover:border-accent-500 hover:bg-white/5 hover:text-accent-300"
+                    >
                       ثبت آگهی فروش وام
                     </Button>
                   </Link>
@@ -163,7 +178,7 @@ export default async function HomePage() {
           <div className="container-page">
             <h2 className="mb-6 flex items-center gap-2 text-xl font-bold text-neutral-900">
               <Landmark size={20} className="text-primary-600" />
-              بانک‌های فعال در وامنو
+              بانک‌های فعال در وثیق
             </h2>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
               {banks.slice(0, 12).map((bank) => (
@@ -219,7 +234,7 @@ export default async function HomePage() {
         <div className="rounded-2xl bg-navy-900 px-8 py-10 text-center text-white">
           <h2 className="mb-3 text-xl font-bold">آگهی خرید یا فروش وام دارید؟</h2>
           <p className="mx-auto mb-6 max-w-xl text-sm text-neutral-300">
-            همین حالا ثبت‌نام کنید و آگهی خود را رایگان در وامنو ثبت کنید تا در معرض دید هزاران کاربر قرار بگیرد.
+            همین حالا ثبت‌نام کنید و آگهی خود را رایگان در وثیق ثبت کنید تا در معرض دید هزاران کاربر قرار بگیرد.
           </p>
           <Link href="/ads/create">
             <Button variant="accent" size="lg">

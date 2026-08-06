@@ -32,7 +32,7 @@ export function MobileMenu({ banks, featuredCities }: MobileMenuProps) {
         <div className="absolute inset-0 bg-neutral-900/50" onClick={() => setOpen(false)} />
         <div className="absolute inset-y-0 right-0 w-[85%] max-w-sm overflow-y-auto bg-white p-5 shadow-2xl animate-slide-up" dir="rtl">
           <div className="mb-4 flex items-center justify-between">
-            <span className="text-lg font-bold text-primary-700">وامنو</span>
+            <span className="text-lg font-bold text-primary-700">وثیق</span>
             <button onClick={() => setOpen(false)} aria-label="بستن" className="rounded-full p-1.5 hover:bg-neutral-100">
               <X size={20} />
             </button>
@@ -121,7 +121,7 @@ export function MobileMenu({ banks, featuredCities }: MobileMenuProps) {
       <button
         onClick={() => setOpen(true)}
         aria-label="باز کردن منو"
-        className="rounded-lg p-2 text-neutral-700 hover:bg-neutral-100"
+        className="rounded-lg p-2 text-accent-500 transition-colors hover:bg-white/10"
       >
         <Menu size={22} />
       </button>

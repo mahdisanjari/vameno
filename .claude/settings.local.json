@@ -51,7 +51,19 @@
       "Bash(grep -oE '<section class=\"saffron-hero\".{0,900}' home.html)",
       "Bash(grep -oE '<main[^>]*id=\"main\"[^>]*>.{0,700}' oneline.html)",
       "Bash(/Applications/MAMP/bin/php/php8.2.0/bin/php /private/tmp/claude-501/-Users-psycho-Documents-code-vameno/e48b02e6-dfd0-4988-9a9f-c3ca6346d38a/scratchpad/wp-cli.phar --path=/Applications/MAMP/htdocs/saffron-shop option get woocommerce_coming_soon)",
-      "Bash(/Applications/MAMP/bin/php/php8.2.0/bin/php /private/tmp/claude-501/-Users-psycho-Documents-code-vameno/e48b02e6-dfd0-4988-9a9f-c3ca6346d38a/scratchpad/wp-cli.phar --path=/Applications/MAMP/htdocs/saffron-shop option update woocommerce_coming_soon no)"
+      "Bash(/Applications/MAMP/bin/php/php8.2.0/bin/php /private/tmp/claude-501/-Users-psycho-Documents-code-vameno/e48b02e6-dfd0-4988-9a9f-c3ca6346d38a/scratchpad/wp-cli.phar --path=/Applications/MAMP/htdocs/saffron-shop option update woocommerce_coming_soon no)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 15 \"http://95.182.88.151/samyar/\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}  type=%{content_type}\\\\n\" --max-time 15 \"http://95.182.88.151/samyar/samyar.jpg\")",
+      "Bash(curl -s --max-time 15 \"http://95.182.88.151/samyar/\")",
+      "Bash(curl -s -m 8 -o /dev/null -w \"%{http_code}\\\\n\" \"https://fonts.googleapis.com/css2?family=Vazirmatn\")",
+      "Bash(curl -s -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" \"https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap\" -o /tmp/vasiq-fonts/vazirmatn.css)",
+      "Bash(rm -f nastaliq-sub.woff2 nas.css)",
+      "Bash(python3 -)",
+      "Bash(pkill -f \"http.server 8791\")",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(NEXT_DIST_DIR=.next-verify npm run build)",
+      "Bash(pkill -f \"next-server\\\\|next start\")"
     ]
   }
 }

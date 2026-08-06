@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: cityPage.meta_title || `فروش وام در ${cityPage.city_name}`,
     description:
       cityPage.meta_description ||
-      `آگهی‌های فروش وام در شهر ${cityPage.city_name} را در وامنو مشاهده و مقایسه کنید.`,
+      `آگهی‌های فروش وام در شهر ${cityPage.city_name} را در وثیق مشاهده و مقایسه کنید.`,
     alternates: { canonical: `/sell/${params.city}` },
   };
 }

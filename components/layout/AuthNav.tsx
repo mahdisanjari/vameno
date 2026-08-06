@@ -22,14 +22,14 @@ export function AuthNav() {
   }, []);
 
   if (isLoading) {
-    return <div className="h-9 w-24 animate-pulse rounded-lg bg-neutral-100" />;
+    return <div className="h-9 w-24 animate-pulse rounded-lg bg-white/10" />;
   }
 
   if (!user) {
     return (
       <div className="flex items-center gap-2">
         <Link href="/auth/login">
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" className="text-navy-100 hover:bg-white/10 hover:text-accent-300">
             ورود
           </Button>
         </Link>
@@ -46,9 +46,9 @@ export function AuthNav() {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 rounded-lg border border-neutral-200 px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+        className="flex items-center gap-2 rounded-lg border border-accent-500/40 px-3 py-1.5 text-sm font-medium text-navy-100 transition-colors hover:border-accent-500 hover:bg-white/10"
       >
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-100 text-primary-700">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent-500/15 text-accent-400">
           <UserIcon size={15} />
         </span>
         <span className="hidden max-w-[100px] truncate sm:inline">{user.full_name || user.phone_number}</span>
